@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import SelectorView from "./components/SelectorButtonGroup";
+import { IntlProvider } from "react-intl";
 
 const AppContainer = styled.div`
   display: flex;
@@ -9,7 +10,8 @@ const AppContainer = styled.div`
   align-items: center;
   height: 100%;
   flex-direction: column;
-  background: #8ab2ff;
+  background: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.secondaryContrast};
 `;
 
 const Header = styled.div`
@@ -36,22 +38,63 @@ const Footer = styled.div`
 `;
 
 const App: React.FC = () => {
-  const [difficulty, setDifficulty] = useState<string | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
-  const handleSelectDifficulty = (difficulty: string) => {
-    setDifficulty(difficulty);
+  const lightTheme = {
+    backgroundColor: "#937DC2",
+    textColor: "#FFE6F7",
+    textTitleColor: "#937DC2",
+    textButtonColor: "#36454F",
+    primaryColor: "#FFE6F7",
+    secondaryColor: "#AAC4FF",
+    button: "#FFE5B4",
+    hoverButton: "#FFD1A6",
+    containerColor: "#FFABE1",
+    circleColor: "#FFE6F7",
+    circleColorText: "#363062",
+    primary: "#FFB9B9",
+    primaryContrast: "#FFDDD2",
+    secondary: "#FFACC7",
+    secondaryContrast: "#B83B5E",
+  };
+
+  const darkTheme = {
+    backgroundColor: "#1C6758",
+    textColor: "#395B64",
+    primaryColor: "#2C3333",
+    secondaryColor: "#A5C9CA",
+    containerColor: "#395B64",
+    circleColor: "#40513B",
+    circleColorText: "black",
+    primary: "#635985",
+    primaryContrast: "#443C68",
+    secondary: "#393053",
+    secondaryContrast: "#18122B",
+  };
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
   };
 
   return (
-    <AppContainer>
-      <Header>
-        <Logo>Selecciona los botones y hablemos!</Logo>
-      </Header>
-      <SelectorView />
-      <Footer>
-        <p>Animo! Me encantaria escucharte!</p>
-      </Footer>
-    </AppContainer>
+    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <AppContainer>
+        <Header>
+          <Logo>Selecciona los botones y hablemos!</Logo>
+          <button onClick={toggleDarkMode}>
+            {isDarkMode ? "Modo claro" : "Modo oscuro"}
+          </button>
+        </Header>
+        <SelectorView
+          isDarkMode={isDarkMode}
+          darkTheme={darkTheme}
+          lightTheme={lightTheme}
+        />
+        <Footer>
+          <p>Animo! Me encantaria escucharte!</p>
+        </Footer>
+      </AppContainer>
+    </ThemeProvider>
   );
 };
 

@@ -1,11 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-//primary #231A31
-//sec #E42F45
-//ter #B42B3F
-//4 #8AB2FF
-
 const ButtonContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -22,14 +17,14 @@ const Button = styled.button`
   border-radius: 0.5rem;
   font-size: 2rem;
   color: white;
-  background-color: #231a31;
+  background-color: ${({ theme }) => theme.secondaryContrast};
   transition: background-color 0.3s ease-in-out;
   display: inline-block;
   height: 80px;
   margin: 10px;
   overflow: hidden;
   &:hover {
-    background-color: #e42f45;
+    background-color: ${({ theme }) => theme.secondary};
   }
   @media (max-width: 368px) {
     font-size: 1rem;
@@ -52,7 +47,6 @@ const findFemaleVoice = (voices: SpeechSynthesisVoice[]) => {
 
 const SpeakButton: React.FC<ButtonProps> = ({ text, onClick }) => {
   const handleClick = () => {
-    const synth = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text);
     const femaleVoice = findFemaleVoice(window.speechSynthesis.getVoices());
     if (femaleVoice) {
@@ -67,90 +61,80 @@ const SpeakButton: React.FC<ButtonProps> = ({ text, onClick }) => {
 
 const renderButtons = ({ selectedOption }: { selectedOption: string }) => {
   switch (selectedOption) {
-    case "confirmar":
+    case "basicNeeds":
       return (
         <ButtonContainer>
-          <SpeakButton text="Si" onClick={() => {}} />
-          <SpeakButton text="No" onClick={() => {}} />
-          <SpeakButton text="Quizas" onClick={() => {}} />
-          <SpeakButton text="Siempre" onClick={() => {}} />
-          <SpeakButton text="Solo por hoy" onClick={() => {}} />
-          <SpeakButton text="Jamas" onClick={() => {}} />
-          <SpeakButton text="estas loco/a?" onClick={() => {}} />
-        </ButtonContainer>
-      );
-    case "myself":
-      return (
-        <ButtonContainer>
-          <SpeakButton text="Estoy Feliz" onClick={() => {}} />
-          <SpeakButton text="Estoy Triste" onClick={() => {}} />
-          <SpeakButton text="Estoy Enojado" onClick={() => {}} />
-          <SpeakButton text="Tengo Hambre" onClick={() => {}} />
-          <SpeakButton text="Tengo Sed" onClick={() => {}} />
+          <p>mensajes para comunicar necesidades diarias: </p>
+          <SpeakButton text="Quiero Agua" onClick={() => {}} />
+          <SpeakButton text="Necesito ir al baño" onClick={() => {}} />
+          <SpeakButton text="Quiero comer" onClick={() => {}} />
+          <SpeakButton text="Tengo frío" onClick={() => {}} />
+          <SpeakButton text="Tengo calor" onClick={() => {}} />
           <SpeakButton text="Tengo Sueño" onClick={() => {}} />
-          <SpeakButton text="Necesito la enfermera" onClick={() => {}} />
-          <SpeakButton text="Gracias" onClick={() => {}} />
-          <SpeakButton text="Tengo Sueño" onClick={() => {}} />{" "}
-          <SpeakButton text="Tengo dolor" onClick={() => {}} />
-          <SpeakButton
-            text="Quiero estar solo en este momento"
-            onClick={() => {}}
-          />
-          <SpeakButton text="Te Quiero" onClick={() => {}} />
-          <SpeakButton text="Te Amo" onClick={() => {}} />
+          <SpeakButton text="Quiero salir" onClick={() => {}} />
         </ButtonContainer>
       );
-    case "family":
+    case "socialNeeds":
       return (
         <ButtonContainer>
-          <SpeakButton text="Quiero ver a mi hijo" onClick={() => {}} />
-          <SpeakButton text="Quiero ver a mi hija" onClick={() => {}} />
-          <SpeakButton text="Quiero ver a mi madre" onClick={() => {}} />
-          <SpeakButton text="Quiero ver a mi Padre" onClick={() => {}} />
-          <SpeakButton text="Quiero ver a mi Hermano" onClick={() => {}} />
-          <SpeakButton text="Quiero ver a mi Hermana" onClick={() => {}} />
-          <SpeakButton text="Quiero ver a mi pareja" onClick={() => {}} />
+          <p>
+            mensajes para conectarse con amigos, familiares y miembros de la
+            comunidad.
+          </p>
+          <SpeakButton text="Hola, ¿cómo estás?" onClick={() => {}} />
+          <SpeakButton text="¿cómo es tú nombre?" onClick={() => {}} />
+          <SpeakButton text="¿Quieres salir conmigo?" onClick={() => {}} />
           <SpeakButton
-            text="Quiero saber sobre mi mascota"
+            text="¿Te gustaría ver una película juntos?"
             onClick={() => {}}
           />
+          <SpeakButton text="¿Cómo estuvo tu día?" onClick={() => {}} />
+          <SpeakButton text="Me encanta hablar contigo" onClick={() => {}} />
+          <SpeakButton text="Eres un gran amigo/a" onClick={() => {}} />
+          <SpeakButton text="¿Cómo está mi mascota?" onClick={() => {}} />
         </ButtonContainer>
       );
-    case "friends":
+    case "jobNeeds":
       return (
         <ButtonContainer>
-          <SpeakButton text="Quiero ver a mi amigo" onClick={() => {}} />
-          <SpeakButton text="Quiero ver a mi amiga" onClick={() => {}} />
-          <SpeakButton text="Como te sientes amigo/a mia?" onClick={() => {}} />
-          <SpeakButton text="Como estan tus hijos?" onClick={() => {}} />
-          <SpeakButton text="Como esta tu pareja?" onClick={() => {}} />
-          <SpeakButton text="Como esta tu trabajo?" onClick={() => {}} />
-          <SpeakButton text="Has ido a mi casa?" onClick={() => {}} />
+          <p>mensajes para el éxito en el trabajo y el lugar de trabajo.</p>
+          <SpeakButton text="¿Puedo tener el día libre?" onClick={() => {}} />
           <SpeakButton
-            text="Dile a mi pareja que estoy bien"
+            text="Necesito ayuda con este trabajo"
+            onClick={() => {}}
+          />
+          <SpeakButton text="¿Cuáles son mis tareas hoy?" onClick={() => {}} />
+          <SpeakButton
+            text="¿Puedo hablar contigo sobre mi rendimiento?"
             onClick={() => {}}
           />
           <SpeakButton
-            text="Dile a mi familia que estoy bien"
+            text="¿Qué puedo hacer para mejorar?"
+            onClick={() => {}}
+          />
+          <SpeakButton
+            text="¿Hay algún problema con mi trabajo?"
+            onClick={() => {}}
+          />
+          <SpeakButton
+            text="Gracias por la oportunidad de trabajo"
             onClick={() => {}}
           />
         </ButtonContainer>
       );
 
-    case "objetos":
+    case "emotionsNeeds":
       return (
         <ButtonContainer>
-          <SpeakButton text="Quiero mi celular" onClick={() => {}} />
-          <SpeakButton text="Quiero mi computadora" onClick={() => {}} />
-          <SpeakButton text="Quiero un libro " onClick={() => {}} />
-          <SpeakButton text="Quiero un abrigo" onClick={() => {}} />
-          <SpeakButton
-            text="Quiero escuchar mi musica favorita"
-            onClick={() => {}}
-          />
-          <SpeakButton text="Quiero ver una pelicula" onClick={() => {}} />
-          <SpeakButton text="Quiero ver una cerveza" onClick={() => {}} />
-          <SpeakButton text="Quiero ver un vino" onClick={() => {}} />
+          <p>Mensajes para expresar sentimientos y emociones.</p>
+          <SpeakButton text="Me siento feliz" onClick={() => {}} />
+          <SpeakButton text="Estoy triste" onClick={() => {}} />
+          <SpeakButton text="Tengo miedo" onClick={() => {}} />
+          <SpeakButton text="Me siento solo" onClick={() => {}} />
+          <SpeakButton text="Me gusta estar contigo" onClick={() => {}} />
+          <SpeakButton text="Te quiero" onClick={() => {}} />
+          <SpeakButton text="Quiero una cerveza" onClick={() => {}} />
+          <SpeakButton text="Estoy enojado" onClick={() => {}} />
           <SpeakButton text="Quiero mi comida favorita" onClick={() => {}} />
         </ButtonContainer>
       );

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider, withTheme } from "styled-components";
 import renderButtons from "./ButtonGroup";
+import Modal from "./Modal";
+import { MdInsertEmoticon, MdWork } from "react-icons/md";
+import { GiThreeFriends } from "react-icons/gi";
+import { AiFillHeart } from "react-icons/ai";
 
 const Container = styled.div`
   display: flex;
@@ -9,7 +13,7 @@ const Container = styled.div`
   justify-content: center;
   width: 70vw;
   height: 100vh;
-  background-color: #f5f5f5;
+  background-color: ${({ theme }) => theme.primaryContrast};
   border-radius: 50px;
   padding: 1rem;
   overflow-y: auto;
@@ -32,40 +36,44 @@ const Container = styled.div`
   }
 `;
 
-const Selector = styled.select`
-  font-size: 1.5rem;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  background-color: #fff;
-  color: #333;
+const CircleContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   width: 100%;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  weight: bold;
+  color: ${({ theme }) => theme.secondaryContrast};
+`;
+
+const Circle = withTheme(styled.div`
+  width: 200px;
+  height: 200px;
+  background-color: ${({ theme }) => theme.primary};
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   transition: all 0.3s ease;
 
   &:hover {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    transform: scale(1.2);
+    background-color: ${({ theme }) => theme.secondary};
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1),
-      0 0 0 0.25rem rgba(0, 123, 255, 0.5);
+  .circle-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
   }
 
-  appearance: none;
-  background-color: white;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' fill='%23000000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l3 3 3-3z'/%3E%3C/svg%3E");
-  background-position: right 0.7rem center;
-  background-repeat: no-repeat;
-  background-size: 1.2rem;
-  padding-right: 2.5rem;
-
-  @media (max-width: 368px) {
-    margin-top: 60px;
+  .circle-name {
+    font-size: 1.5rem;
+    text-align: center;
   }
-`;
+`);
 
 const ContainerButtons = styled.div`
   @media (max-width: 368px) {
@@ -74,28 +82,69 @@ const ContainerButtons = styled.div`
 `;
 
 interface SelectorProps {
-  options: string[];
-  onSelect: (option: string) => void;
+  isDarkMode: boolean;
+  lightTheme: any;
+  darkTheme: any;
 }
 
-const SelectorView: React.FC = () => {
+const SelectorView: React.FC<SelectorProps> = ({
+  lightTheme,
+  isDarkMode,
+  darkTheme,
+}) => {
   const [selectedOption, setSelectedOption] = useState<string>("easy");
+  const [showModal, setShowModal] = useState(false);
 
-  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.target.value);
+  console.log(isDarkMode);
+
+  const handleCircleClick = (option: string) => {
+    setShowModal(true);
+    setSelectedOption(option);
   };
 
+  const CircleContent = ({
+    name,
+    icon,
+  }: {
+    name: string;
+    icon: React.ReactNode;
+  }) => (
+    <Circle>
+      <div className="circle-icon">{icon}</div>
+      <div className="circle-name">{name}</div>
+    </Circle>
+  );
+
   return (
-    <Container>
-      <Selector onChange={handleOptionChange}>
-        <option value="">Quiero hablar de...</option>
-        <option value="myself">mi</option>
-        <option value="family">familia</option>
-        <option value="friends">amigos</option>
-        <option value="objetos">objetos</option>
-      </Selector>
-      <ContainerButtons>{renderButtons({ selectedOption })}</ContainerButtons>
-    </Container>
+    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
+      <Container>
+        <CircleContainer>
+          <Circle onClick={() => handleCircleClick("basicNeeds")}>
+            <CircleContent icon={<MdInsertEmoticon />} name={"BasicNeeds"} />
+          </Circle>
+          <Circle onClick={() => handleCircleClick("socialNeeds")}>
+            <CircleContent icon={<GiThreeFriends />} name={"Social needs"} />
+          </Circle>
+          <Circle onClick={() => handleCircleClick("emotionsNeeds")}>
+            <CircleContent icon={<AiFillHeart />} name={"Emotions needs"} />
+          </Circle>
+          <Circle onClick={() => handleCircleClick("jobNeeds")}>
+            <CircleContent icon={<MdWork />} name={"Job Needs"} />
+          </Circle>
+        </CircleContainer>
+        {showModal && (
+          <Modal
+            isOpen={showModal}
+            onClose={() => setShowModal(!showModal)}
+            theme={isDarkMode ? darkTheme : lightTheme}
+          >
+            <ContainerButtons>
+              {renderButtons({ selectedOption })}
+            </ContainerButtons>
+          </Modal>
+        )}
+      </Container>
+    </ThemeProvider>
   );
 };
 
