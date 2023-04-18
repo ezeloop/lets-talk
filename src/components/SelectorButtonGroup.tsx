@@ -44,6 +44,11 @@ const CircleContainer = styled.div`
   margin-bottom: 1rem;
   weight: bold;
   color: ${({ theme }) => theme.secondaryContrast};
+  @media (max-width: 368px) {
+    display: grid;
+    grid-template-columns: auto;
+    margin-top: 3rem;
+  }
 `;
 
 const Circle = withTheme(styled.div`
@@ -67,11 +72,22 @@ const Circle = withTheme(styled.div`
   .circle-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
+    @media (max-width: 368px) {
+      font-size: 1.5rem;
+    }
   }
 
   .circle-name {
     font-size: 1.5rem;
     text-align: center;
+    font-weight: bold;
+    @media (max-width: 368px) {
+      font-size: 1rem;
+    }
+  }
+  @media (max-width: 368px) {
+    width: 140px;
+    height: 140px;
   }
 `);
 
@@ -120,16 +136,16 @@ const SelectorView: React.FC<SelectorProps> = ({
       <Container>
         <CircleContainer>
           <Circle onClick={() => handleCircleClick("basicNeeds")}>
-            <CircleContent icon={<MdInsertEmoticon />} name={"BasicNeeds"} />
+            <CircleContent icon={<MdInsertEmoticon />} name={"Básicas"} />
           </Circle>
           <Circle onClick={() => handleCircleClick("socialNeeds")}>
-            <CircleContent icon={<GiThreeFriends />} name={"Social needs"} />
+            <CircleContent icon={<GiThreeFriends />} name={"Sociales"} />
           </Circle>
           <Circle onClick={() => handleCircleClick("emotionsNeeds")}>
-            <CircleContent icon={<AiFillHeart />} name={"Emotions needs"} />
+            <CircleContent icon={<AiFillHeart />} name={"Emociones"} />
           </Circle>
           <Circle onClick={() => handleCircleClick("jobNeeds")}>
-            <CircleContent icon={<MdWork />} name={"Job Needs"} />
+            <CircleContent icon={<MdWork />} name={"Trabajo"} />
           </Circle>
         </CircleContainer>
         {showModal && (

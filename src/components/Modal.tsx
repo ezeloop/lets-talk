@@ -38,7 +38,6 @@ const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose, theme }) => {
       <ModalContainer isOpen={isOpen} onClick={onClose}>
         <ModalContent onClick={(event) => event.stopPropagation()}>
           {children}
-          <button onClick={onClose}>Cerrar</button>
         </ModalContent>
       </ModalContainer>
     </ThemeProvider>

@@ -15,18 +15,41 @@ const AppContainer = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  height: 10vh;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const ButtonMode = styled.button`
+  background-color: ${(props) => props.theme.secondaryContrast};
+  color: ${(props) => props.theme.primary};
+  padding: 8px 16px;
+  border-radius: 4px;
+  width: 100px;
+  border: none;
+  cursor: pointer;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 3rem;
+  @media (max-width: 768px) {
+    margin: 1rem 0;
+    justify-content: center;
+  }
 `;
 
 const Logo = styled.h1`
   font-size: 3rem;
   font-weight: bold;
+  margin: 1rem 0;
   text-align: center;
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 `;
 
@@ -81,9 +104,11 @@ const App: React.FC = () => {
       <AppContainer>
         <Header>
           <Logo>Selecciona los botones y hablemos!</Logo>
-          <button onClick={toggleDarkMode}>
-            {isDarkMode ? "Modo claro" : "Modo oscuro"}
-          </button>
+          <ButtonWrapper>
+            <ButtonMode onClick={toggleDarkMode}>
+              {isDarkMode ? "Modo claro" : "Modo oscuro"}
+            </ButtonMode>
+          </ButtonWrapper>
         </Header>
         <SelectorView
           isDarkMode={isDarkMode}
@@ -91,7 +116,7 @@ const App: React.FC = () => {
           lightTheme={lightTheme}
         />
         <Footer>
-          <p>Animo! Me encantaria escucharte!</p>
+          <p>Ánimo! Me encantaría escucharte!</p>
         </Footer>
       </AppContainer>
     </ThemeProvider>
