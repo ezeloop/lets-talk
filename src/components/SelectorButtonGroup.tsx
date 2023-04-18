@@ -29,7 +29,6 @@ const CircleContainer = styled.div`
   @media (max-width: 1024px) {
     display: grid;
     grid-template-columns: auto auto;
-    margin-top: 3rem;
   }
 `;
 
@@ -52,7 +51,6 @@ const Circle = withTheme(styled.div`
 
   .circle-icon {
     font-size: 3rem;
-    margin-bottom: 1rem;
     @media (max-width: 1024px) {
       font-size: 3rem;
     }
