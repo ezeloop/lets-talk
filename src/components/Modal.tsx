@@ -25,9 +25,18 @@ const ModalContent = styled.div`
   padding: 2rem;
   border-radius: 50px;
   height: 80vh;
-  width: 80vw;
+  width: 60vw;
   overflow-y: auto;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+`;
+
+const CloseIcon = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+  color: #fff;
+  font-size: 2rem;
 `;
 
 const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose, theme }) => {
@@ -37,6 +46,7 @@ const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose, theme }) => {
     <ThemeProvider theme={theme}>
       <ModalContainer isOpen={isOpen} onClick={onClose}>
         <ModalContent onClick={(event) => event.stopPropagation()}>
+          <CloseIcon onClick={onClose}>X</CloseIcon>
           {children}
         </ModalContent>
       </ModalContainer>

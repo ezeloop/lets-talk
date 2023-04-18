@@ -16,24 +16,6 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.primaryContrast};
   border-radius: 50px;
   padding: 1rem;
-  overflow-y: auto;
-  /* Estilos de la scrollbar */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: #f5f5f5;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #231a31;
-    border-radius: 5px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
 `;
 
 const CircleContainer = styled.div`
@@ -44,9 +26,9 @@ const CircleContainer = styled.div`
   margin-bottom: 1rem;
   weight: bold;
   color: ${({ theme }) => theme.secondaryContrast};
-  @media (max-width: 368px) {
+  @media (max-width: 1024px) {
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: auto auto;
     margin-top: 3rem;
   }
 `;
@@ -62,7 +44,6 @@ const Circle = withTheme(styled.div`
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease;
-
   &:hover {
     transform: scale(1.2);
     background-color: ${({ theme }) => theme.secondary};
@@ -72,7 +53,10 @@ const Circle = withTheme(styled.div`
   .circle-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
-    @media (max-width: 368px) {
+    @media (max-width: 1024px) {
+      font-size: 3rem;
+    }
+    @media (max-width: 425px) {
       font-size: 1.5rem;
     }
   }
@@ -81,13 +65,22 @@ const Circle = withTheme(styled.div`
     font-size: 1.5rem;
     text-align: center;
     font-weight: bold;
-    @media (max-width: 368px) {
+    @media (max-width: 1024px) {
+      font-size: 2rem;
+    }
+    @media (max-width: 425px) {
       font-size: 1rem;
     }
   }
-  @media (max-width: 368px) {
-    width: 140px;
-    height: 140px;
+  @media (max-width: 1024px) {
+    margin: 1rem;
+    width: 200px;
+    height: 200px;
+  }
+  @media (max-width: 425px) {
+    margin: 1rem;
+    width: 100px;
+    height: 100px;
   }
 `);
 
@@ -110,8 +103,6 @@ const SelectorView: React.FC<SelectorProps> = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("easy");
   const [showModal, setShowModal] = useState(false);
-
-  console.log(isDarkMode);
 
   const handleCircleClick = (option: string) => {
     setShowModal(true);

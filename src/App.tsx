@@ -8,7 +8,7 @@ const AppContainer = styled.div`
   justify-content: center;
   width: 100vw;
   align-items: center;
-  height: 100%;
+  height: 100vh;
   flex-direction: column;
   background: ${({ theme }) => theme.primary};
   color: ${({ theme }) => theme.secondaryContrast};
@@ -18,7 +18,7 @@ const Header = styled.div`
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     grid-template-columns: 1fr;
   }
 `;
@@ -27,17 +27,25 @@ const ButtonMode = styled.button`
   background-color: ${(props) => props.theme.secondaryContrast};
   color: ${(props) => props.theme.primary};
   padding: 8px 16px;
-  border-radius: 4px;
+  border-radius: 15px;
+  font-weight: bold;
   width: 100px;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    color: ${(props) => props.theme.secondaryContrast};
+    transform: scale(1.2);
+    background-color: ${({ theme }) => theme.primaryContrast};
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-left: 3rem;
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     margin: 1rem 0;
     justify-content: center;
   }
@@ -48,7 +56,7 @@ const Logo = styled.h1`
   font-weight: bold;
   margin: 1rem 0;
   text-align: center;
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     font-size: 1rem;
   }
 `;

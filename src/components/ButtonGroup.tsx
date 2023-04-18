@@ -34,7 +34,7 @@ const Button = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.secondary};
   }
-  @media (max-width: 368px) {
+  @media (max-width: 425px) {
     font-size: 1rem;
     height: 60px;
   }
