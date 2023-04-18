@@ -14,8 +14,11 @@ const ButtonContainer = styled.div`
 
 const Title = styled.p`
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 3rem;
   font-weight: bold;
+  @media (max-width: 428px) {
+    font-size: 1rem;
+  }
 `;
 
 const Button = styled.button`
@@ -23,12 +26,12 @@ const Button = styled.button`
   margin: 1rem;
   border: none;
   border-radius: 0.5rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: white;
   background-color: ${({ theme }) => theme.secondaryContrast};
   transition: background-color 0.3s ease-in-out;
   display: inline-block;
-  height: 100px;
+  height: 120px;
   margin: 10px;
   overflow: hidden;
   &:hover {
